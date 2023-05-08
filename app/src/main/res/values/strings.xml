@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DiplomDemo</string>
+    <string name="title_activity_list_of_contacts">ListOfContacts</string>
+</resources>
