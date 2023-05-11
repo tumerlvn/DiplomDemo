@@ -1,5 +1,6 @@
 package com.example.diplomdemo.adapters
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.diplomdemo.R
+import com.example.diplomdemo.activities.DialWithContactActivity
+import com.example.diplomdemo.activities.ListOfAvailablePeers
 import com.example.diplomdemo.contacts.Contact
 import com.example.diplomdemo.contacts.ContactStore
 import com.example.diplomdemo.items.ContactItem
@@ -37,7 +40,13 @@ class ContactItemAdapter(private val contactItemList: List<ContactItem>) : Recyc
 
         init {
             dialBtn.setOnClickListener {
+                //Todo: передавать значение publicKey контакта
+                val intent = Intent(textView.context,DialWithContactActivity::class.java)
+                val jsonContact = contact.serialize()
+                intent.putExtra("contact", jsonContact)
+                textView.context.startActivity(intent).apply {
 
+                }
             }
         }
 

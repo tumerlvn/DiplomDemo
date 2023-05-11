@@ -41,15 +41,19 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
 
-        if (!hasBluetoothPermissions()) {
-            requestBluetoothPermissions()
-        } else {
-            // Only initialize IPv8 if it has not been initialized yet.
-            try {
-                IPv8Android.getInstance()
-            } catch (exception: Exception) {
-                (application as DemoApplication).initIPv8()
+        try {
+            if (!hasBluetoothPermissions()) {
+                requestBluetoothPermissions()
+            } else {
+                // Only initialize IPv8 if it has not been initialized yet.
+                try {
+                    IPv8Android.getInstance()
+                } catch (exception: Exception) {
+                    (application as DemoApplication).initIPv8()
+                }
             }
+        } catch (exception: Exception) {
+            Log.d("Demo.MainActivity","initIPv8 doesn't work")
         }
 
 //        val community = IPv8Android.getInstance().getOverlay<DemoCommunity>()!!
@@ -71,6 +75,16 @@ class MainActivity : AppCompatActivity() {
 
                         }
                     }
+                    2 -> {
+                        startActivity(Intent(this@MainActivity, GenerateDFActivity::class.java)).apply {
+
+                        }
+                    }
+                    3 -> {
+                        startActivity(Intent(this@MainActivity, AnalyzeDFActivity::class.java)).apply {
+
+                        }
+                    }
                     else -> Log.d("Demo.onItemClick", "Clicked on something else")
                 }
             }
@@ -89,6 +103,8 @@ class MainActivity : AppCompatActivity() {
 
         list += ClickItem(R.drawable.ic_contacts, "Contacts")
         list += ClickItem(R.drawable.ic_add_contact, "Add Contact")
+        list += ClickItem(R.drawable.baseline_keyboard_double_arrow_down_24, "Generate DF")
+        list += ClickItem(R.drawable.baseline_content_paste_search_24, "Analyze DF")
 
         return list
     }

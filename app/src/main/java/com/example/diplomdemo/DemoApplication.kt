@@ -55,7 +55,8 @@ class DemoApplication : Application() {
 
     fun initIPv8() {
         val demoCommunity = OverlayConfiguration(
-            Overlay.Factory(DemoCommunity::class.java),
+//            Overlay.Factory(DemoCommunity::class.java),
+            DemoCommunity.Factory(this),
             listOf(RandomWalk.Factory())
         )
 

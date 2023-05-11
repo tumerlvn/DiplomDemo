@@ -35,6 +35,15 @@
         android:theme="@style/Theme.DiplomDemo"
         tools:targetApi="31">
         <activity
+            android:name=".activities.AnalyzeDFActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.GenerateDFActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.DialWithContactActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ListOfContacts"
             android:exported="false">
             <meta-data

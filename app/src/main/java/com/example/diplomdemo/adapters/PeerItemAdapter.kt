@@ -37,9 +37,10 @@ class PeerItemAdapter(private val peerItemList: List<PeerItem>) : RecyclerView.A
 
         init {
             addBtn.setOnClickListener {
-                //Todo: сделать добавление в базу данных нашего peer как contact
-                val publicKey = peer.publicKey
 
+                val publicKey = peer.publicKey
+                //Todo: сделать добавление контактов двусторонним, т.е. должен будет приходить
+                // запрос на добавление, а ты должен на него отвечать да или нет
 
                 ContactStore.getInstance(textView.context).addContact(publicKey, peer.mid)
                 Log.d("Demo.addContact", "Button pressed")

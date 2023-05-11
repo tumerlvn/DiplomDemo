@@ -31,10 +31,6 @@ class ListOfContacts() : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_of_contacts)
 
-
-
-
-
         var contacts = emptyList<Contact>()
         val contactItemList = ArrayList<ContactItem>()
         contacts.forEach {
