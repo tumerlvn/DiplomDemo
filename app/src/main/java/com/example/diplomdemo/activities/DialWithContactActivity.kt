@@ -1,7 +1,6 @@
 package com.example.diplomdemo.activities
 
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -10,11 +9,10 @@ import android.widget.Button
 import android.widget.EditText
 import com.example.diplomdemo.DemoCommunity
 import com.example.diplomdemo.R
+import com.example.diplomdemo.TimeInformer
 import com.example.diplomdemo.contacts.Contact
 import nl.tudelft.ipv8.android.IPv8Android
 import java.io.File
-import java.io.FileOutputStream
-import java.io.Serializable
 
 
 // Этот activity отвечает за связь с другим контактом
@@ -36,10 +34,11 @@ class DialWithContactActivity : AppCompatActivity() {
         val currentJsonContact = intent.getByteArrayExtra("contact") as ByteArray
 
         val (currentContact, _) = Contact.deserialize(currentJsonContact, 0)
-        // Todo: скопировать решение с peer-chat(добавить таблицу и классы для Message)
 
         val editTextView = findViewById<EditText>(R.id.messageET)
         val sendButton = findViewById<Button>(R.id.sendBtn)
+        val showOutgoingButton = findViewById<Button>(R.id.outgoingBtn)
+        val showIncomingButton = findViewById<Button>(R.id.incomingBtn)
         val sendFileButton = findViewById<Button>(R.id.sendFileBtn)
         val showFilesButton = findViewById<Button>(R.id.showFilesBtn)
 
@@ -64,6 +63,24 @@ class DialWithContactActivity : AppCompatActivity() {
             community.sendMessageToContact(currentContact, text)
         }
 
+        showOutgoingButton.setOnClickListener {
+            val intent = Intent(this, ShowMessagesActivity::class.java)
+            intent.putExtra("outgoing", true)
+            intent.putExtra("contact", currentJsonContact)
+            startActivity(intent).apply {
+
+            }
+        }
+
+        showIncomingButton.setOnClickListener {
+            val intent = Intent(this, ShowMessagesActivity::class.java)
+            intent.putExtra("outgoing", false)
+            intent.putExtra("contact", currentJsonContact)
+            startActivity(intent).apply {
+
+            }
+        }
+
         sendFileButton.setOnClickListener {
             community.sendFileToContact(currentContact, file)
 
@@ -71,6 +88,11 @@ class DialWithContactActivity : AppCompatActivity() {
 
         showFilesButton.setOnClickListener {
             // Todo: сделать показ файлов полученных от контакта
+            try {
+                Log.d("Demo.time", TimeInformer().getTime().toString())
+            } catch (exception: Exception) {
+                Log.e("Demo.time", exception.toString())
+            }
         }
 
 

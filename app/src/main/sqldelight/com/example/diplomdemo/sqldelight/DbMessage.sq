@@ -1,0 +1,42 @@
+CREATE TABLE messages (
+    id TEXT NOT NULL,
+    message TEXT NOT NULL,
+    sender_public_key BLOB NOT NULL,
+    recipient_public_key BLOB NOT NULL,
+    outgoing INTEGER NOT NULL,
+    timestamp INTEGER NOT NULL,
+    PRIMARY KEY (id)
+);
+
+addMessage:
+INSERT INTO messages (id, message, sender_public_key, recipient_public_key, outgoing, timestamp)
+VALUES(?, ?, ?, ?, ?, ?);
+
+getAll:
+SELECT * FROM messages ORDER BY timestamp ASC;
+
+getAllByPublicKey:
+SELECT * FROM messages WHERE sender_public_key = ? OR recipient_public_key = ?
+ORDER BY timestamp ASC;
+
+getAllOutgoingByPublicKey:
+SELECT * FROM messages WHERE sender_public_key = ?
+ORDER BY timestamp ASC;
+
+getAllIncomingByPublicKey:
+SELECT * FROM messages WHERE recipient_public_key = ?
+ORDER BY timestamp ASC;
+
+getAllMessagesFromTo:
+SELECT * FROM messages WHERE sender_public_key = ? AND recipient_public_key = ?
+ORDER BY timestamp ASC;
+
+getLastByPublicKey:
+SELECT * FROM messages WHERE sender_public_key = ? OR recipient_public_key = ?
+ORDER BY timestamp DESC LIMIT 1;
+
+deleteMessagesOfPublicKey:
+DELETE FROM messages WHERE sender_public_key = ? OR recipient_public_key = ?;
+
+getMessageById:
+SELECT * FROM messages WHERE id = ?;

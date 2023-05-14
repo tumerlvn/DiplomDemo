@@ -18,6 +18,7 @@ import android.os.Build
 import android.util.Log
 import androidx.core.content.getSystemService
 import androidx.preference.PreferenceManager
+import com.example.diplomdemo.messages.DbMessageStore
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import nl.tudelft.ipv8.IPv8Configuration
 import nl.tudelft.ipv8.Overlay
@@ -56,7 +57,7 @@ class DemoApplication : Application() {
     fun initIPv8() {
         val demoCommunity = OverlayConfiguration(
 //            Overlay.Factory(DemoCommunity::class.java),
-            DemoCommunity.Factory(this),
+            DemoCommunity.Factory(DbMessageStore.getInstance(this),this),
             listOf(RandomWalk.Factory())
         )
 

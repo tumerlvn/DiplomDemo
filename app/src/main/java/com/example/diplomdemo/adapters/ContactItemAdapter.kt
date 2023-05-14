@@ -40,7 +40,6 @@ class ContactItemAdapter(private val contactItemList: List<ContactItem>) : Recyc
 
         init {
             dialBtn.setOnClickListener {
-                //Todo: передавать значение publicKey контакта
                 val intent = Intent(textView.context,DialWithContactActivity::class.java)
                 val jsonContact = contact.serialize()
                 intent.putExtra("contact", jsonContact)

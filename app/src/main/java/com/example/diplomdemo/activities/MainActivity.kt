@@ -17,6 +17,7 @@ import com.example.diplomdemo.items.ClickItem
 
 import nl.tudelft.ipv8.android.IPv8Android
 import nl.tudelft.ipv8.util.*
+import java.io.File
 
 @RequiresApi(Build.VERSION_CODES.M)
 class MainActivity : AppCompatActivity() {
@@ -40,6 +41,12 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
+
+        val path = this.filesDir
+        Log.d("Demo.path", path.toString())
+        val letDirectory = File(path, "DemoDirectory")
+        letDirectory.mkdirs()
+
 
         try {
             if (!hasBluetoothPermissions()) {
